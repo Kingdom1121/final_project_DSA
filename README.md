@@ -75,7 +75,7 @@ Bảng kết quả đo đạc thực tế trên máy:
 | **14** | 365,596 | 365,596 | 27,358,553 | 1.217558 | 0.109270 | **11.14x** |
 
 **Đánh giá & Nhận xét:**
-- **Tính chính xác:** Số nghiệm tìm được khớp 100% với tài liệu của Donald Knuth (TAOCP Vol. 4B) và dãy số OEIS A000170.
+- **Tính chính xác:** Số nghiệm tìm được khớp 100% với tài liệu của Donald Knuth (TAOCP Vol. 4B).
 - **Tính đồng nhất:** Số node khảo sát giữa Plain và Bitmask bằng nhau tuyệt đối ở mọi kích thước $N$, chứng minh hai phương pháp duyệt trên cùng một cây trạng thái.
 - **Hiệu năng:** Mức tăng tốc dao động từ `7.83x` đến `11.14x` phù hợp với các kết quả thực nghiệm chuẩn công bố trên Rosetta Code.
 
