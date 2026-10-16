@@ -17,9 +17,9 @@ CHECK ĐƯỜNG CHÉO PHỤ d2
 CHECK HÀNG VÀ BÌA KHÔNG NẰM Ở NGOÀI BIÊN
 */
 bool isSatisfyPlain(int row, int col, int n, 
-                           const vector<bool>& cols, 
-                           const vector<bool>& diag1, 
-                           const vector<bool>& diag2) {
+                    const vector<bool>& cols, 
+                    const vector<bool>& diag1, 
+                    const vector<bool>& diag2) {
     int d1 = row - col + n - 1; // đường chéo chính
     int d2 = row + col;         // đường chéo phụ
 
@@ -33,16 +33,16 @@ void solvePlain(int row, int n, vector<bool>& cols, vector<bool>& diag1, vector<
 
     if (row == n) {
         solutions++;
-        // Trực quan hóa nghiệm đầu tiên nếu N = 8
-        if (n == 8 && solutions == 1) {
-            cout << "\n[Visualizing 8x8 Board - Nghiem dau tien]:\n";
+        // [Bổ sung Tuần 2]: In bàn cờ cho N = 4 (tất cả nghiệm) hoặc N = 8 (nghiệm đầu tiên)
+        if ((n == 4) || (n == 8 && solutions == 1)) {
+            cout << "\n  [Truc quan hoa ban co " << n << "x" << n << " - Nghiem " << solutions << "]:\n";
             for (int r = 0; r < n; r++) {
+                cout << "    ";
                 for (int c = 0; c < n; c++) {
                     cout << (board[r] == c ? "Q " : ". ");
                 }
                 cout << "\n";
             }
-            cout << "\n";
         }
         return;
     }
@@ -108,9 +108,31 @@ int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
 
+    // [Bổ sung Tuần 2]: Kiểm tra các trường hợp biên N = 1, 2, 3 và mẫu nhỏ N = 4
+    cout << "=========================================================================\n";
+    cout << "   [TUAN 2] KIEM THU TRUONG HOP BIEN (N = 1, 2, 3) VA MAU NHO (N = 4)   \n";
+    cout << "=========================================================================\n";
+    vector<int> edge_cases = {1, 2, 3, 4};
+    for (int n : edge_cases) {
+        long long s_plain = 0, nd_plain = 0;
+        vector<bool> cols(n, false), diag1(2 * n, false), diag2(2 * n, false);
+        vector<int> board(n, 0);
+        solvePlain(0, n, cols, diag1, diag2, board, s_plain, nd_plain);
+
+        long long s_bit = 0, nd_bit = 0;
+        solveBitmask(0, 0, 0, 0, n, s_bit, nd_bit);
+
+        cout << ">>> Ket qua voi N = " << n << " <<<\n"
+             << "  - Plain   : " << s_plain << " nghiem | " << nd_plain << " nodes\n"
+             << "  - Bitmask : " << s_bit << " nghiem | " << nd_bit << " nodes\n";
+        if (n == 2 || n == 3) cout << "  => Nhan xet: Vo nghiem dung voi ly thuyet to hop.\n";
+        cout << "-------------------------------------------------------------------------\n";
+    }
+
+    // Benchmark đo đạc N = 8, 10, 12, 14
     vector<int> test_sizes = {8, 10, 12, 14};
 
-    cout << "=========================================================================\n";
+    cout << "\n=========================================================================\n";
     cout << "          N-QUEENS BENCHMARK: PLAIN VS BITMASK (C++ VERSION)             \n";
     cout << "=========================================================================\n\n";
 
@@ -122,7 +144,6 @@ int main() {
         vector<bool> cols(n, false), diag1(2 * n, false), diag2(2 * n, false);
         vector<int> board(n, 0);
         
-        // Đo thời gian chạy
         auto t1 = high_resolution_clock::now();
         solvePlain(0, n, cols, diag1, diag2, board, plain_sols, plain_nodes);
         auto t2 = high_resolution_clock::now();
@@ -136,7 +157,6 @@ int main() {
         // 2. Bitmask Backtracking
         long long bitmask_sols = 0, bitmask_nodes = 0;
         
-        // Đo thời gian chạy
         auto t3 = high_resolution_clock::now();
         solveBitmask(0, 0, 0, 0, n, bitmask_sols, bitmask_nodes);
         auto t4 = high_resolution_clock::now();
