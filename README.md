@@ -37,7 +37,14 @@ Dựa trên mã nguồn ban đầu và yêu cầu làm rõ điều kiện đặt
 # BÁO CÁO TIẾN ĐỘ TUẦN 2 — HOÀN THIỆN THỰC NGHIỆM VÀ PHÂN TÍCH
 
 Trạng thái: Hoàn thành 100% nhiệm vụ Tuần 2 theo nhận xét của GVHD.
+### Bảng phân công nhiệm vụ
 
+| STT | Họ và tên | MSSV | Vai trò | Nhiệm vụ đảm nhiệm |
+| :---: | :--- | :---: | :---: | :--- |
+| **1** | **Nguyễn Trọng Đại** | **25110015** | Nhóm trưởng | - Lần vết thủ công (hand-trace) và vẽ sơ đồ cây tìm kiếm vét cạn cho $N = 4$ minh họa vết cắt tỉa ([Draw_N=4_Tree.jpg](https://github.com/Kingdom1121/final_project_DSA/blob/main/Draw_N%3D4_Tree.jpg)).<br>- Kiểm tra chéo độ chính xác của bảng số liệu thực nghiệm và đối chiếu với lý thuyết Knuth TAOCP.<br>- Soạn thảo và cập nhật nội dung báo cáo tiến độ tuần 2 vào file [README.md](https://github.com/Kingdom1121/final_project_DSA/blob/main/README.md). |
+| **2** | **Phan Hữu Tình** | **25110065** | Thành viên | - Bổ sung khối kiểm thử các trường hợp biên $N = 1, 2, 3$ và trực quan hóa nghiệm $N = 4$ vào mã nguồn [nqueen.cpp](https://github.com/Kingdom1121/final_project_DSA/blob/main/nqueen.cpp).[cite: 13]<br>- Xây dựng chương trình [benchmark_runner.cpp](https://github.com/Kingdom1121/final_project_DSA/blob/main/benchmark_runner.cpp) đo đạc tự động với cờ `-O3`, xuất dữ liệu thô sang [benchmark_result.txt](https://github.com/Kingdom1121/final_project_DSA/blob/main/benchmark_result.txt).<br>- Phân tích độ phức tạp $O(N!)$ so với không gian cắt tỉa thực tế $O(c^N)$ vào file [tableanalysis.txt](https://github.com/Kingdom1121/final_project_DSA/blob/main/tableanalysis.txt).[cite: 8]<br>- Quản lý repository, thực hiện commit và push mã nguồn lên GitHub. |
+
+## Các nội dung bổ sung và chỉnh sửa trong Tuần 2 (theo góp ý của GVHD)
 ### 1. Bổ sung kiểm thử các trường hợp biên và mẫu nhỏ trong mã nguồn (`nqueen.cpp`)
 - **Kiểm thử biên $N = 1, 2, 3$:**
   - $N = 1$: Cho ra đúng 1 nghiệm duy nhất (đặt tại ô `(0, 0)`).
