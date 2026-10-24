@@ -173,5 +173,44 @@ int main() {
         cout << "-------------------------------------------------------------------------\n\n";
     }
 
+    // [Bổ sung Tuần 3]: Khảo sát bổ sung mốc N = 13 để kết hợp với N = 12 và N = 14 tạo thành bộ 3 giá trị tăng dần liên tiếp (12 -> 13 -> 14)
+    cout << "=========================================================================\n";
+    cout << "   [TUAN 3] KHAO SAT MO RONG BO SUNG N = 13 (DANH GIA XU HUONG 12->13->14)\n";
+    cout << "=========================================================================\n\n";
+    vector<int> extended_sizes = {13};
+    for (int n : extended_sizes) {
+        cout << ">>> KHAO SAT BO SUNG VOI N = " << n << " <<<\n";
+
+        long long plain_sols = 0, plain_nodes = 0;
+        vector<bool> cols(n, false), diag1(2 * n, false), diag2(2 * n, false);
+        vector<int> board(n, 0);
+
+        auto t1 = high_resolution_clock::now();
+        solvePlain(0, n, cols, diag1, diag2, board, plain_sols, plain_nodes);
+        auto t2 = high_resolution_clock::now();
+        double time_plain = duration<double>(t2 - t1).count();
+
+        cout << "  [Plain Backtracking]\n"
+             << "    - So nghiem tim duoc : " << plain_sols << "\n"
+             << "    - So node khao sat   : " << plain_nodes << "\n"
+             << "    - Thoi gian          : " << fixed << setprecision(6) << time_plain << " s\n";
+
+        long long bitmask_sols = 0, bitmask_nodes = 0;
+        auto t3 = high_resolution_clock::now();
+        solveBitmask(0, 0, 0, 0, n, bitmask_sols, bitmask_nodes);
+        auto t4 = high_resolution_clock::now();
+        double time_bitmask = duration<double>(t4 - t3).count();
+
+        cout << "  [Bitmask Backtracking (Optimized)]\n"
+             << "    - So nghiem tim duoc : " << bitmask_sols << "\n"
+             << "    - So node khao sat   : " << bitmask_nodes << "\n"
+             << "    - Thoi gian          : " << fixed << setprecision(6) << time_bitmask << " s\n";
+
+        if (time_bitmask > 1e-6) {
+            cout << "  => Speedup (Thoi gian) : " << setprecision(2) << (time_plain / time_bitmask) << "x nhanh hon\n";
+        }
+        cout << "-------------------------------------------------------------------------\n\n";
+    }
+
     return 0;
 }
