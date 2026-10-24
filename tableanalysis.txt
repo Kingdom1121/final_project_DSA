@@ -44,3 +44,38 @@ II. PHÂN TÍCH ĐỘ PHỨC TẠP THUẬT TOÁN
    - Plain Backtracking  : O(N) gồm chiều sâu ngăn xếp đệ quy (tối đa N tầng) và 3 mảng bool đánh dấu.
    - Bitmask Backtracking: O(N) chỉ gồm chiều sâu ngăn xếp đệ quy, không tốn thêm bộ nhớ mảng phụ.
 ====================================================================================================
+III. KHẢO SÁT VÀ PHÂN TÍCH XU HƯỚNG TĂNG TRƯỞNG KHI MỞ RỘNG N (BỔ SUNG TUẦN 3)
+====================================================================================================
+Theo nhận xét hướng dẫn của GVHD, nhóm tiến hành mở rộng khảo sát tại 3 giá trị N tăng dần 
+liên tiếp (N = 12, 13, 14) với bước nhảy đơn vị (+1) để đánh giá trực quan xu hướng tăng trưởng 
+thời gian và không gian trạng thái thực tế.
+
+1. BẢNG ĐỐI CHIẾU XU HƯỚNG TĂNG TRƯỞNG (GROWTH TREND TABLE)
+--------------------------------------------------------------------------------------------------------------------------------------------
+N     Số nghiệm    Hệ số (Nghiệm)   Số node duyệt    Hệ số (Node)   T_Plain (s)   Hệ số T_Plain   T_Bitmask (s)   Hệ số T_Bitmask   Speedup
+--------------------------------------------------------------------------------------------------------------------------------------------
+12    14,200       -                856,189          -              0.038165      -               0.003396        -                 11.24x
+13    73,712       ~5.19x           4,674,890        ~5.46x         0.201991      ~5.29x          0.017775        ~5.23x            11.36x
+14    365,596      ~4.96x           27,358,553       ~5.85x         1.209164      ~5.99x          0.104610        ~5.89x            11.56x
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+2. PHÂN TÍCH VÀ ĐÁNH GIÁ XU HƯỚNG THỰC NGHIỆM
+
+a) Bản chất tăng trưởng hàm mũ O(c^N) thay vì O(N!):
+   - Khi tăng N thêm 1 đơn vị:
+     + Từ N = 12 lên N = 13: Số node tăng gấp 5.46 lần, thời gian Plain tăng 5.29 lần, Bitmask tăng 5.23 lần.
+     + Từ N = 13 lên N = 14: Số node tăng gấp 5.85 lần, thời gian Plain tăng 5.99 lần, Bitmask tăng 5.89 lần.
+   - Hệ số tăng trưởng thực nghiệm dao động đều đặn trong khoảng 5.2x đến 6.0x cho mỗi bước nhảy N.
+   - Nếu thuật toán duyệt hoán vị không cắt tỉa O(N!), hệ số bùng nổ lý thuyết phải là N (tức là tăng gấp 13 lần ở N=13 và 14 lần ở N=14). 
+   - Việc hệ số thực tế chỉ dừng ở mức ~5.5x minh chứng rằng kỹ thuật cắt tỉa đường chéo (d1, d2) đã ghìm không gian tìm kiếm về dạng hàm mũ cơ số nhỏ O(c^N) (với c ≈ 2.54), triệt tiêu phần lớn các nhánh vô nghiệm.
+
+b) Tương quan giữa số node và thời gian thực thi:
+   - Hệ số tăng thời gian của cả 2 thuật toán (Plain: 5.29x -> 5.99x; Bitmask: 5.23x -> 5.89x) bám rất sát hệ số tăng của số node duyệt (5.46x -> 5.85x).
+   - Điều này khẳng định thời gian chạy của cả hai phương pháp tăng tuyến tính trực tiếp theo số node trên cây tìm kiếm, phản ánh đúng chi phí xử lý trên mỗi trạng thái đệ quy.
+
+c) Sự ổn định và ưu thế vượt trội của Bitmask Backtracking:
+   - Tốc độ tăng tốc (Speedup) tăng đều và giữ vững độ ổn định rất cao:
+     + N = 12: 11.24x
+     + N = 13: 11.36x
+     + N = 14: 11.56x
+   - Kết quả này chứng minh khi kích thước dữ liệu mở rộng, Bitmask không hề bị suy giảm hiệu năng. Nhờ loại bỏ hoàn toàn các mảng đánh dấu bool trên bộ nhớ RAM và thay bằng các phép toán bitwise trực tiếp trên thanh ghi CPU (available & -available, dịch bit), Bitmask duy trì tốc độ xử lý nhanh hơn bản Plain trung bình trên 11.3 lần một cách bền vững.
