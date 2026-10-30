@@ -185,19 +185,19 @@ Quá trình nghiên cứu và hiện thực hóa đề tài "Backtracking Search
 
 ### 2. Tổng hợp bảng số liệu thực nghiệm toàn diện ($N = 1 \to 14$)
 
-Dữ liệu thực nghiệm thu thập độc lập trên hệ thống phần cứng cá nhân với cờ biên dịch `g++ -O3 -std=c++11`:
+Bảng kết quả đo thực tế từ hệ thống phần cứng cá nhân thông qua chương trình `benchmark_runner.cpp` với cờ biên dịch `g++ -O3 -std=c++11` (đã lưu trữ tại `benchmark_result.txt`):
 
 | $N$ | Số nghiệm lý thuyết (OEIS A000170) | Số nghiệm tìm được | Số node khảo sát (Cả 2 thuật toán) | Thời gian Plain (giây) | Thời gian Bitmask (giây) | Tốc độ tăng tốc (Speedup) | Ghi chú trạng thái kiểm thử |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| **1** | 1 | 1 | 1 | < 0.000001 | < 0.000001 | 1.00x | Ca biên tối thiểu |
-| **2** | 0 | 0 | 3 | < 0.000001 | < 0.000001 | 1.00x | Vô nghiệm (Cắt tỉa sớm) |
-| **3** | 0 | 0 | 6 | < 0.000001 | < 0.000001 | 1.00x | Vô nghiệm (Cắt tỉa sớm) |
-| **4** | 2 | 2 | 17 | < 0.000001 | < 0.000001 | 1.00x | Đã đối chiếu sơ đồ cây |
-| **8** | 92 | 92 | 2,057 | 0.000107 | 0.000014 | 7.83x | Bàn cờ chuẩn quốc tế |
-| **10** | 724 | 724 | 35,539 | 0.001810 | 0.000184 | 9.85x | Khảo sát quy mô vừa |
-| **12** | 14,200 | 14,200 | 856,189 | 0.038165 | 0.003396 | 11.24x | Mốc đầu chuỗi mở rộng |
-| **13** | 73,712 | 73,712 | 4,674,890 | 0.201991 | 0.017775 | 11.36x | Mốc giữa chuỗi mở rộng |
-| **14** | 365,596 | 365,596 | 27,358,553 | 1.209164 | 0.104610 | 11.56x | Mốc kiểm thử áp lực lớn |
+| **1** | 1 | 1 | 2 | 0.00000001 | 0.00000000 | **5.50x** | Ca biên tối thiểu (Khớp lý thuyết) |
+| **2** | 0 | 0 | 3 | 0.00000001 | 0.00000000 | **6.97x** | Vô nghiệm (Cắt tỉa sớm) |
+| **3** | 0 | 0 | 6 | 0.00000004 | 0.00000000 | **8.53x** | Vô nghiệm (Cắt tỉa sớm) |
+| **4** | 2 | 2 | 17 | 0.00000014 | 0.00000002 | **7.29x** | Khớp 100% sơ đồ cây `Draw_N=4_Tree.jpg` |
+| **8** | 92 | 92 | 2,057 | 0.00009070 | 0.00001130 | **8.03x** | Bàn cờ chuẩn quốc tế |
+| **10** | 724 | 724 | 35,539 | 0.00162530 | 0.00014610 | **11.12x** | Khảo sát quy mô vừa |
+| **12** | 14,200 | 14,200 | 856,189 | 0.03608850 | 0.00339050 | **10.64x** | Mốc đầu chuỗi mở rộng |
+| **13** | 73,712 | 73,712 | 4,674,890 | 0.20876020 | 0.01838320 | **11.36x** | Mốc giữa chuỗi mở rộng |
+| **14** | 365,596 | 365,596 | 27,358,553 | 1.22953670 | 0.10407990 | **11.81x** | Mốc kiểm thử áp lực lớn |
 
 ---
 
